@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.ssm.dao.mapper.TeamMapper" >
+  <resultMap id="BaseResultMap" type="com.demo.ssm.entity.Team" >
+    <id column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="tstatus" property="tstatus" jdbcType="VARCHAR" />
+    <result column="tlogo" property="tlogo" jdbcType="VARCHAR" />
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
+    <result column="timg" property="timg" jdbcType="VARCHAR" />
+    <result column="tslogan" property="tslogan" jdbcType="VARCHAR" />
+    <result column="tdesc" property="tdesc" jdbcType="VARCHAR" />
+    <result column="tpm" property="tpm" jdbcType="VARCHAR" />
+    <result column="ttime" property="ttime" jdbcType="DATE" />
+    <result column="tmoney" property="tmoney" jdbcType="DOUBLE" />
+    <result column="tcontract" property="tcontract" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tid, tstatus, tlogo, tname, timg, tslogan, tdesc, tpm, ttime, tmoney, tcontract
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.demo.ssm.entity.TeamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from team
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.ssm.entity.Team" >
+    insert into team (tid, tstatus, tlogo, 
+      tname, timg, tslogan, 
+      tdesc, tpm, ttime, tmoney, 
+      tcontract)
+    values (#{tid,jdbcType=INTEGER}, #{tstatus,jdbcType=VARCHAR}, #{tlogo,jdbcType=VARCHAR}, 
+      #{tname,jdbcType=VARCHAR}, #{timg,jdbcType=VARCHAR}, #{tslogan,jdbcType=VARCHAR}, 
+      #{tdesc,jdbcType=VARCHAR}, #{tpm,jdbcType=VARCHAR}, #{ttime,jdbcType=DATE}, #{tmoney,jdbcType=DOUBLE}, 
+      #{tcontract,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.ssm.entity.Team" >
+    insert into team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="tstatus != null" >
+        tstatus,
+      </if>
+      <if test="tlogo != null" >
+        tlogo,
+      </if>
+      <if test="tname != null" >
+        tname,
+      </if>
+      <if test="timg != null" >
+        timg,
+      </if>
+      <if test="tslogan != null" >
+        tslogan,
+      </if>
+      <if test="tdesc != null" >
+        tdesc,
+      </if>
+      <if test="tpm != null" >
+        tpm,
+      </if>
+      <if test="ttime != null" >
+        ttime,
+      </if>
+      <if test="tmoney != null" >
+        tmoney,
+      </if>
+      <if test="tcontract != null" >
+        tcontract,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="tstatus != null" >
+        #{tstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tlogo != null" >
+        #{tlogo,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null" >
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="timg != null" >
+        #{timg,jdbcType=VARCHAR},
+      </if>
+      <if test="tslogan != null" >
+        #{tslogan,jdbcType=VARCHAR},
+      </if>
+      <if test="tdesc != null" >
+        #{tdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tpm != null" >
+        #{tpm,jdbcType=VARCHAR},
+      </if>
+      <if test="ttime != null" >
+        #{ttime,jdbcType=DATE},
+      </if>
+      <if test="tmoney != null" >
+        #{tmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="tcontract != null" >
+        #{tcontract,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update team
+    <set >
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tstatus != null" >
+        tstatus = #{record.tstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tlogo != null" >
+        tlogo = #{record.tlogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tname != null" >
+        tname = #{record.tname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timg != null" >
+        timg = #{record.timg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tslogan != null" >
+        tslogan = #{record.tslogan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tdesc != null" >
+        tdesc = #{record.tdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpm != null" >
+        tpm = #{record.tpm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ttime != null" >
+        ttime = #{record.ttime,jdbcType=DATE},
+      </if>
+      <if test="record.tmoney != null" >
+        tmoney = #{record.tmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.tcontract != null" >
+        tcontract = #{record.tcontract,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update team
+    set tid = #{record.tid,jdbcType=INTEGER},
+      tstatus = #{record.tstatus,jdbcType=VARCHAR},
+      tlogo = #{record.tlogo,jdbcType=VARCHAR},
+      tname = #{record.tname,jdbcType=VARCHAR},
+      timg = #{record.timg,jdbcType=VARCHAR},
+      tslogan = #{record.tslogan,jdbcType=VARCHAR},
+      tdesc = #{record.tdesc,jdbcType=VARCHAR},
+      tpm = #{record.tpm,jdbcType=VARCHAR},
+      ttime = #{record.ttime,jdbcType=DATE},
+      tmoney = #{record.tmoney,jdbcType=DOUBLE},
+      tcontract = #{record.tcontract,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.ssm.entity.Team" >
+    update team
+    <set >
+      <if test="tstatus != null" >
+        tstatus = #{tstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tlogo != null" >
+        tlogo = #{tlogo,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null" >
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="timg != null" >
+        timg = #{timg,jdbcType=VARCHAR},
+      </if>
+      <if test="tslogan != null" >
+        tslogan = #{tslogan,jdbcType=VARCHAR},
+      </if>
+      <if test="tdesc != null" >
+        tdesc = #{tdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tpm != null" >
+        tpm = #{tpm,jdbcType=VARCHAR},
+      </if>
+      <if test="ttime != null" >
+        ttime = #{ttime,jdbcType=DATE},
+      </if>
+      <if test="tmoney != null" >
+        tmoney = #{tmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="tcontract != null" >
+        tcontract = #{tcontract,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.ssm.entity.Team" >
+    update team
+    set tstatus = #{tstatus,jdbcType=VARCHAR},
+      tlogo = #{tlogo,jdbcType=VARCHAR},
+      tname = #{tname,jdbcType=VARCHAR},
+      timg = #{timg,jdbcType=VARCHAR},
+      tslogan = #{tslogan,jdbcType=VARCHAR},
+      tdesc = #{tdesc,jdbcType=VARCHAR},
+      tpm = #{tpm,jdbcType=VARCHAR},
+      ttime = #{ttime,jdbcType=DATE},
+      tmoney = #{tmoney,jdbcType=DOUBLE},
+      tcontract = #{tcontract,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

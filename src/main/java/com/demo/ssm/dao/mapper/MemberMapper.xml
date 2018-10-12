@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.ssm.dao.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.demo.ssm.entity.Member" >
+    <id column="mid" property="mid" jdbcType="INTEGER" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="mimg" property="mimg" jdbcType="VARCHAR" />
+    <result column="mexp" property="mexp" jdbcType="VARCHAR" />
+    <result column="mjob" property="mjob" jdbcType="VARCHAR" />
+    <result column="mskill" property="mskill" jdbcType="VARCHAR" />
+    <result column="mphone" property="mphone" jdbcType="VARCHAR" />
+    <result column="mqq" property="mqq" jdbcType="VARCHAR" />
+    <result column="mstatus" property="mstatus" jdbcType="VARCHAR" />
+    <result column="miteamid" property="miteamid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mid, mname, mimg, mexp, mjob, mskill, mphone, mqq, mstatus, miteamid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.demo.ssm.entity.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where mid = #{mid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member
+    where mid = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.ssm.entity.Member" >
+    insert into member (mid, mname, mimg, 
+      mexp, mjob, mskill, 
+      mphone, mqq, mstatus, 
+      miteamid)
+    values (#{mid,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, #{mimg,jdbcType=VARCHAR}, 
+      #{mexp,jdbcType=VARCHAR}, #{mjob,jdbcType=VARCHAR}, #{mskill,jdbcType=VARCHAR}, 
+      #{mphone,jdbcType=VARCHAR}, #{mqq,jdbcType=VARCHAR}, #{mstatus,jdbcType=VARCHAR}, 
+      #{miteamid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.ssm.entity.Member" >
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mimg != null" >
+        mimg,
+      </if>
+      <if test="mexp != null" >
+        mexp,
+      </if>
+      <if test="mjob != null" >
+        mjob,
+      </if>
+      <if test="mskill != null" >
+        mskill,
+      </if>
+      <if test="mphone != null" >
+        mphone,
+      </if>
+      <if test="mqq != null" >
+        mqq,
+      </if>
+      <if test="mstatus != null" >
+        mstatus,
+      </if>
+      <if test="miteamid != null" >
+        miteamid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mimg != null" >
+        #{mimg,jdbcType=VARCHAR},
+      </if>
+      <if test="mexp != null" >
+        #{mexp,jdbcType=VARCHAR},
+      </if>
+      <if test="mjob != null" >
+        #{mjob,jdbcType=VARCHAR},
+      </if>
+      <if test="mskill != null" >
+        #{mskill,jdbcType=VARCHAR},
+      </if>
+      <if test="mphone != null" >
+        #{mphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mqq != null" >
+        #{mqq,jdbcType=VARCHAR},
+      </if>
+      <if test="mstatus != null" >
+        #{mstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="miteamid != null" >
+        #{miteamid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member
+    <set >
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mname != null" >
+        mname = #{record.mname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mimg != null" >
+        mimg = #{record.mimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mexp != null" >
+        mexp = #{record.mexp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mjob != null" >
+        mjob = #{record.mjob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mskill != null" >
+        mskill = #{record.mskill,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mphone != null" >
+        mphone = #{record.mphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mqq != null" >
+        mqq = #{record.mqq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mstatus != null" >
+        mstatus = #{record.mstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.miteamid != null" >
+        miteamid = #{record.miteamid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member
+    set mid = #{record.mid,jdbcType=INTEGER},
+      mname = #{record.mname,jdbcType=VARCHAR},
+      mimg = #{record.mimg,jdbcType=VARCHAR},
+      mexp = #{record.mexp,jdbcType=VARCHAR},
+      mjob = #{record.mjob,jdbcType=VARCHAR},
+      mskill = #{record.mskill,jdbcType=VARCHAR},
+      mphone = #{record.mphone,jdbcType=VARCHAR},
+      mqq = #{record.mqq,jdbcType=VARCHAR},
+      mstatus = #{record.mstatus,jdbcType=VARCHAR},
+      miteamid = #{record.miteamid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.ssm.entity.Member" >
+    update member
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mimg != null" >
+        mimg = #{mimg,jdbcType=VARCHAR},
+      </if>
+      <if test="mexp != null" >
+        mexp = #{mexp,jdbcType=VARCHAR},
+      </if>
+      <if test="mjob != null" >
+        mjob = #{mjob,jdbcType=VARCHAR},
+      </if>
+      <if test="mskill != null" >
+        mskill = #{mskill,jdbcType=VARCHAR},
+      </if>
+      <if test="mphone != null" >
+        mphone = #{mphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mqq != null" >
+        mqq = #{mqq,jdbcType=VARCHAR},
+      </if>
+      <if test="mstatus != null" >
+        mstatus = #{mstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="miteamid != null" >
+        miteamid = #{miteamid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.ssm.entity.Member" >
+    update member
+    set mname = #{mname,jdbcType=VARCHAR},
+      mimg = #{mimg,jdbcType=VARCHAR},
+      mexp = #{mexp,jdbcType=VARCHAR},
+      mjob = #{mjob,jdbcType=VARCHAR},
+      mskill = #{mskill,jdbcType=VARCHAR},
+      mphone = #{mphone,jdbcType=VARCHAR},
+      mqq = #{mqq,jdbcType=VARCHAR},
+      mstatus = #{mstatus,jdbcType=VARCHAR},
+      miteamid = #{miteamid,jdbcType=INTEGER}
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+</mapper>
